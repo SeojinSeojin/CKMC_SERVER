@@ -1,0 +1,14 @@
+{
+  "compilerOptions": {
+    "module": "commonjs",
+    "target": "es6",
+    "moduleResolution": "node",
+    "strict": true,
+    "alwaysStrict": true,
+    "allowSyntheticDefaultImports": true,
+    "outDir": "dist",
+    "listEmittedFiles": true,
+    "esModuleInterop": true
+  },
+  "include": ["src/**/*"]
+}
