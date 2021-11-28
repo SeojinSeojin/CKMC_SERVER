@@ -5,7 +5,7 @@ const letterSchema = new Schema<LetterData>({
   title: { type: String, required: true },
   body: { type: String, required: true },
   sender: { type: String, required: true },
-  file: { type: String, required: true },
+  file: { type: String },
 });
 
 letterSchema.set('timestamps', true);
