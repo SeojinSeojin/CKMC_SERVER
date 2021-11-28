@@ -9,15 +9,17 @@ module.exports = {
   target: 'node',
   output: {
     path: path.resolve(__dirname, 'dist'),
-    filename: 'index.js',
+    clean: true,
   },
   resolve: { extensions: ['.ts', '.js'] },
   module: {
-    rules: {
-      test: /\.ts$/,
-      loader: 'ts-loader',
-      exclude: /node_modules/,
-    },
+    rules: [
+      {
+        test: /\.ts$/,
+        loader: 'ts-loader',
+        exclude: /node_modules/,
+      },
+    ],
   },
   plugins: [
     new webpack.DefinePlugin({
@@ -33,4 +35,6 @@ module.exports = {
       HASH_ROUNDS: process.env.HASH_ROUNDS,
     }),
   ],
+  optimization: { minimize: true },
+  devtool: 'source-map',
 };
