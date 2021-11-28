@@ -1,0 +1,31 @@
+# This is a basic workflow to help you get started with Actions
+
+name: remote ssh command
+
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+      
+      - uses: appleboy/ssh-action@v0.1.3
+        name: executing remote ssh commands using password
+        with:
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USERNAME }}
+          password: ${{ secrets.PASSWORD }}
+          port: ${{ secrets.PORT }}
+          script: |
+            cd CKMC_SERVER
+            git fetch --all 
+            git reset --hard main
+            git pull origin main
+            npm install
+            npm run build
+            pm2 restart 0
