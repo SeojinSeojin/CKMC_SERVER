@@ -1,32 +1,24 @@
-export const koreanConsonantRegex = (consonant: string) => {
-  switch (consonant) {
-    case 'ㄱ':
+export const koreanConsonantRegex = (character: string) => {
+  switch (character) {
+    case '가':
       return '^[가-깋]';
-    case 'ㄴ':
-      return '^[나-닣]';
-    case 'ㄷ':
-      return '^[다-딯]';
-    case 'ㄹ':
-      return '^[라-맇]';
-    case 'ㅁ':
-      return '^[마-밓]';
-    case 'ㅂ':
+    case '나-마':
+      return '^[나-닣]|^[다-딯]|^[라-맇]|^[마-밓]';
+    case '바':
       return '^[바-빟]';
-    case 'ㅅ':
+    case '사':
       return '^[사-싷]';
-    case 'ㅇ':
+    case '아':
       return '^[아-잏]';
-    case 'ㅈ':
+    case '자':
       return '^[자-짛]';
-    case 'ㅊ':
+    case '차':
       return '^[차-칳]';
-    case 'ㅋ':
-      return '^[카-킿]';
-    case 'ㅌ':
-      return '^[타-팋]';
-    case 'ㅍ':
-      return '^[파-핗]';
-    case 'ㅎ':
+    case '타-파':
+      return '^[타-팋]|^[파-핗]';
+    case '하':
       return '^[하-힣]';
+    default:
+      return '';
   }
 };
