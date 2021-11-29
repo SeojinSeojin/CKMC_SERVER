@@ -8,6 +8,7 @@ const workSchema = new Schema<WorkData>({
   authorName: { type: String, required: true },
   thumbnail: { type: String, required: true },
   episodes: { type: [Episode.schema], default: [] },
+  hashTags: { type: [String], required: false },
 });
 
 workSchema.set('timestamps', true);

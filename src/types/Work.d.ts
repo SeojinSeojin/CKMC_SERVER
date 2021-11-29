@@ -6,4 +6,5 @@ export default interface WorkData {
   authorName: string;
   thumbnail: string;
   episodes: EpisodeData[];
+  hashTags: Array<string>;
 }
