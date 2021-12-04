@@ -2,11 +2,6 @@ import { NextFunction, Request, Response } from 'express';
 import { Letter } from '../db/schema';
 import { LetterData } from '../types';
 import { CustomRequest } from '../types/API';
-import { ObjectId } from 'mongodb';
-
-interface MongoLetterData extends LetterData {
-  _id: ObjectId;
-}
 
 export const getLetters = async (
   req: Request,
@@ -19,7 +14,7 @@ export const getLetters = async (
 
   const lettersCount = await Letter.countDocuments({});
 
-  const letters: Array<MongoLetterData> = await Letter.find()
+  const letters: Array<LetterData> = await Letter.find()
     .sort({ _id: -1 })
     .skip(page * mode)
     .limit(mode);
