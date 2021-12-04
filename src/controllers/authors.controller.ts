@@ -16,6 +16,7 @@ type patchAuthorParams = {
   title: string;
   description: string;
   thumbnail: string;
+  hashTags: Array<string>;
 };
 export const patchAuthorInfo = async (
   req: CustomRequest<patchAuthorParams>,
@@ -25,7 +26,7 @@ export const patchAuthorInfo = async (
   const author = req.session.author;
   if (!author) return res.status(400).send('세션에 유저가 저장되어 있지 않음');
 
-  const { contact, title, thumbnail, description } = req.body;
+  const { contact, title, thumbnail, description, hashTags } = req.body;
 
   await Work.updateOne(
     { _id: author.work._id },
@@ -34,6 +35,7 @@ export const patchAuthorInfo = async (
         title: title,
         thumbnail: thumbnail,
         description: description,
+        hashTags: hashTags,
       },
     }
   );
