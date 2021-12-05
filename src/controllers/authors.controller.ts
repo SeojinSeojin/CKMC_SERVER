@@ -1,6 +1,7 @@
 import { NextFunction, Response, Request } from 'express';
 import { Author, User, Work } from '../db/schema';
 import authors from '../db/statics/authorInClass';
+import { AuthorData } from '../types';
 import { CustomRequest } from '../types/API';
 
 export const getAuthorsByClass = async (
@@ -58,4 +59,18 @@ export const patchAuthorInfo = async (
 
   req.session.author = newAuthor;
   return res.status(200).json(req.session.author);
+};
+
+export const getAuthorById = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  const { id } = req.params;
+
+  let author: AuthorData;
+  if (isNaN(parseInt(id))) author = await Author.findOne({ nickName: id });
+  else author = await Author.findOne({ number: id });
+  if (!author) return res.status(400).send('잘못된 작가 번호입니다');
+  return res.status(200).json(author);
 };
