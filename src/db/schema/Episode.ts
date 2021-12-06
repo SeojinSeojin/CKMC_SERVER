@@ -5,8 +5,9 @@ import Comment from './Comment';
 const episodeSchema = new Schema<EpisodeData>({
   viewMethod: { type: String, required: true },
   title: { type: String, required: true },
+  authorName: { type: String, required: true },
   thumbnail: { type: String, required: true },
-  description: { type: String, required: true },
+  description: { type: String },
   isForNineteen: { type: Boolean, required: true },
   link: { type: String },
   pages: { type: [String], default: [] },

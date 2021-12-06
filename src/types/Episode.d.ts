@@ -3,9 +3,10 @@ import { ObjectId } from 'mongodb';
 
 export default interface EpisodeData {
   _id: ObjectId;
+  authorName: string;
   viewMethod: 'scroll' | 'page' | 'link';
   title: string;
-  description: string;
+  description?: string;
   isForNineteen: boolean;
   thumbnail: string;
   link?: string;
