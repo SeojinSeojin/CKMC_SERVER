@@ -1,16 +1,14 @@
 import CommentData from './Comment';
-import PageData from './Page';
 import { ObjectId } from 'mongodb';
 
 export default interface EpisodeData {
   _id: ObjectId;
-  workTitle: string;
-  viewMethod: number;
+  viewMethod: 'scroll' | 'page' | 'link';
   title: string;
-  thumbnail: string;
   description: string;
   isForNineteen: boolean;
+  thumbnail: string;
   link?: string;
-  pages?: PageData[];
-  comments: CommentData[];
+  pages?: string[];
+  comments?: CommentData[];
 }

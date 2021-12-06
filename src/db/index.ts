@@ -1,7 +1,7 @@
 import { MongoClientOptions } from 'mongodb';
 import mongoose from 'mongoose';
 import dotenv from 'dotenv';
-import { Author, Letter, User, Page, Work } from './schema';
+import { Author, Letter, User, Work } from './schema';
 import Comment from './schema/Comment';
 import Episode from './schema/Episode';
 import HashTag from './schema/HashTag';
@@ -26,7 +26,6 @@ export async function createMongoConnection() {
   await Episode.createCollection();
   await HashTag.createCollection();
   await Letter.createCollection();
-  await Page.createCollection();
   await Work.createCollection();
 
   database.once('open', async () => {
