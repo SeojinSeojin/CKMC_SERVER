@@ -6,7 +6,7 @@ const episodeSchema = new Schema<EpisodeData>({
   viewMethod: { type: String, required: true },
   title: { type: String, required: true },
   authorName: { type: String, required: true },
-  thumbnail: { type: String, required: true },
+  thumbnail: { type: Schema.Types.Mixed, required: true },
   description: { type: String },
   link: { type: String },
   index: { type: Number },

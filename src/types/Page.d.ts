@@ -1,5 +1,5 @@
-export default interface PageData {
+import ImageData from './Image';
+
+export default interface PageData extends ImageData {
   index: number;
-  localPath: string;
-  remotePath: string;
 }
