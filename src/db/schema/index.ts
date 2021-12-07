@@ -4,6 +4,5 @@ import Letter from './Letter';
 import Work from './Work';
 import Comment from './Comment';
 import Episode from './Episode';
-import HashTag from './HashTag';
 
-export { Author, User, Letter, Work, Comment, Episode, HashTag };
+export { Author, User, Letter, Work, Comment, Episode };

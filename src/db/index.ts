@@ -4,7 +4,6 @@ import dotenv from 'dotenv';
 import { Author, Letter, User, Work } from './schema';
 import Comment from './schema/Comment';
 import Episode from './schema/Episode';
-import HashTag from './schema/HashTag';
 
 dotenv.config();
 
@@ -24,7 +23,6 @@ export async function createMongoConnection() {
   await Author.createCollection();
   await Comment.createCollection();
   await Episode.createCollection();
-  await HashTag.createCollection();
   await Letter.createCollection();
   await Work.createCollection();
 

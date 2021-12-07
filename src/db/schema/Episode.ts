@@ -8,9 +8,9 @@ const episodeSchema = new Schema<EpisodeData>({
   authorName: { type: String, required: true },
   thumbnail: { type: String, required: true },
   description: { type: String },
-  isForNineteen: { type: Boolean, required: true },
   link: { type: String },
-  pages: { type: [String], default: [] },
+  index: { type: Number },
+  pages: { type: [Schema.Types.Mixed], default: [] },
   comments: { type: [Comment.schema], default: [] },
 });
 
