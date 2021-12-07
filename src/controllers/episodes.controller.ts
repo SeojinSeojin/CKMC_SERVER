@@ -1,6 +1,6 @@
 import { NextFunction, Response, Request } from 'express';
 import { Author, Episode, User, Work } from '../db/schema';
-import { EpisodeData } from '../types';
+import { AuthorData, EpisodeData } from '../types';
 import { CustomRequest } from '../types/API';
 
 export const postEpisode = async (
@@ -51,4 +51,21 @@ export const postEpisode = async (
 
   req.session.author = newAuthor;
   return res.status(200).json(newAuthor);
+};
+
+export const getEpisodeByAuthorAndIndex = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  const { authorName, episodeIdx } = req.params;
+  const author: AuthorData = await Author.findOne({ nickName: authorName });
+  if (!author) return res.status(400).send('유효하지 않은 작가 이름');
+
+  const episodes = author.work.episodes;
+  if (episodes.length < +episodeIdx)
+    return res.status(400).send('유효하지 않은 작품 회차');
+
+  const episode = author.work.episodes[+episodeIdx];
+  return res.status(200).json({ author, episode });
 };
