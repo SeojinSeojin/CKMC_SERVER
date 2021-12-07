@@ -69,3 +69,38 @@ export const getEpisodeByAuthorAndIndex = async (
   const episode = author.work.episodes[+episodeIdx];
   return res.status(200).json({ author, episode });
 };
+
+export const patchEpisode = async () => {};
+
+export const deleteEpisode = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  const author = req.session.author;
+  if (!author) return res.status(400).send('세션에 유저가 저장되어 있지 않음');
+
+  const { episodeIdx } = req.params;
+  const episodes = author.work.episodes;
+  if (episodes.length < +episodeIdx || +episodeIdx < 0)
+    return res.status(400).send('유효하지 않은 작품 회차');
+
+  episodes.splice(+episodeIdx, 1);
+
+  await Work.updateOne(
+    { authorName: author.nickName },
+    { $set: { episodes: episodes } }
+  );
+  const work = await Work.findOne({ authorName: author.nickName });
+
+  await Author.updateOne({ _id: author._id }, { $set: { work: work } });
+  const newAuthor = await Author.findOne({ _id: author._id });
+
+  await User.updateOne(
+    { 'author._id': author._id },
+    { $set: { author: newAuthor } }
+  );
+  req.session.author = newAuthor;
+
+  res.status(200).json(newAuthor);
+};
