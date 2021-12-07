@@ -55,7 +55,7 @@ export const getEpisodeByAuthorAndIndex = async (
   if (!author) return res.status(400).send('유효하지 않은 작가 이름');
 
   const episodes = author.work.episodes;
-  if (episodes.length < +episodeIdx)
+  if (episodes.length <= +episodeIdx)
     return res.status(400).send('유효하지 않은 작품 회차');
 
   const episode = author.work.episodes.find(
@@ -138,12 +138,18 @@ export const deleteEpisode = async (
   if (episodes.length < +episodeIdx || +episodeIdx < 0)
     return res.status(400).send('유효하지 않은 작품 회차');
 
-  episodes.splice(+episodeIdx, 1);
+  const newEpisodes = episodes
+    .filter((episode) => episode.index !== +episodeIdx)
+    .map((episode) => {
+      if (episode.index !== undefined && episode.index > +episodeIdx)
+        return { ...episode, index: episode.index - 1 };
+      else return episode;
+    });
   await Episode.deleteOne({ index: episodeIdx, authorName: author.nickName });
 
   await Work.updateOne(
     { authorName: author.nickName },
-    { $set: { episodes: episodes } }
+    { $set: { episodes: newEpisodes } }
   );
   const work = await Work.findOne({ authorName: author.nickName });
 
