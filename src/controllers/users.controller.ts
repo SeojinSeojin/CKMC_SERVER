@@ -19,7 +19,7 @@ export const getSessionUser = async (
   try {
     const { author } = req.session;
     if (author) return res.status(200).json(author);
-    return res.status(201).json({ author: null });
+    return res.status(201).json(null);
   } catch (error) {
     next(error);
   }
