@@ -18,7 +18,13 @@ export const getSessionUser = async (
 ) => {
   try {
     const { author } = req.session;
-    if (author) return res.status(200).json(author);
+    if (author) {
+      if (!author.work.hashTags)
+        return res
+          .status(200)
+          .json({ ...author, work: { ...author.work, hashTags: [] } });
+      return res.status(200).json(author);
+    }
     return res.status(201).json(null);
   } catch (error) {
     next(error);
