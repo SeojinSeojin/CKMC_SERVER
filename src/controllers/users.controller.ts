@@ -49,3 +49,10 @@ export const postLogin = async (
     next(error);
   }
 };
+
+export const postLogout = (req: Request, res: Response, next: NextFunction) => {
+  req.session.destroy((error) => {
+    if (error) return next(error);
+    else return res.status(200).send('로그아웃 성공');
+  });
+};
