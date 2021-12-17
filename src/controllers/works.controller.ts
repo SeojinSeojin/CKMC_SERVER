@@ -1,24 +1,6 @@
 import { NextFunction, Response, Request } from 'express';
 import { Work } from '../db/schema';
-import { WorkData } from '../types';
 import { koreanConsonantRegex } from '../utils/koreanConsonantRegex';
-
-export const getWorksByPage = async (
-  req: Request,
-  res: Response,
-  next: NextFunction
-) => {
-  try {
-    const { page = 0 } = req.query;
-    const works: Array<WorkData> = await Work.find()
-      .skip(Number(page) * 30)
-      .limit(30);
-
-    return res.status(200).json(works);
-  } catch (error) {
-    next(error);
-  }
-};
 
 export const getWorksByFilter = async (
   req: Request,
