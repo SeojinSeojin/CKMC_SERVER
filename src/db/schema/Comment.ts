@@ -5,6 +5,8 @@ const commentSchema = new Schema<CommentData>({
   username: { type: String, required: true },
   password: { type: String, required: true },
   content: { type: String, required: true },
+  authorName: { type: String, required: true },
+  episodeIndex: { type: String, required: true },
 });
 
 commentSchema.set('timestamps', true);
