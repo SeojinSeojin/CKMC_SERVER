@@ -103,6 +103,7 @@ export const patchEpisode = async (
         viewMethod,
         authorName: author.nickName,
         index,
+        comments: episode.comments,
       };
     else return episode;
   });
@@ -147,6 +148,12 @@ export const deleteEpisode = async (
     });
   await Episode.deleteOne({ index: episodeIdx, authorName: author.nickName });
 
+  for (let i = +episodeIdx + 1; i <= episodes.length; i++) {
+    await Episode.updateOne(
+      { index: i, authorName: author.nickName },
+      { $set: { index: i - 1 } }
+    );
+  }
   await Work.updateOne(
     { authorName: author.nickName },
     { $set: { episodes: newEpisodes } }
