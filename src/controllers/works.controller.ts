@@ -24,15 +24,15 @@ export const getWorksByFilter = async (
         : koreanConsonantRegex(authorFirstName as string);
     if (hashTags.length) {
       const works = await Work.find({
-        hashTags: { $all: hashTags },
+        hashTags: { $in: hashTags },
         authorName: { $regex: authorNameRegex },
-        workTitle: { $regex: workTitle },
+        title: { $regex: workTitle },
       });
       return res.status(200).json(works);
     } else {
       const works = await Work.find({
         authorName: { $regex: authorNameRegex },
-        workTitle: { $regex: workTitle },
+        title: { $regex: workTitle },
       });
       return res.status(200).json(works);
     }
