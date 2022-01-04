@@ -82,6 +82,25 @@ export const patchComment = async (
     return res.status(400).json({ message: '잘못된 유저이름입니다.' });
   if (comment.password !== password)
     return res.status(400).json({ message: '잘못된 비밀번호입니다.' });
-  await Comment.updateOne({ _id }, { $set: { content } });
+  await Comment.findByIdAndUpdate(_id, { $set: { content } });
   return res.status(200).json(comment);
+};
+
+export const deleteComment = async (
+  req: CustomRequest<CommentData>,
+  res: Response,
+  next: NextFunction
+) => {
+  const { username, password, _id } = req.body;
+  if (!username || !password || !_id)
+    return res.status(400).json({ message: '잘못된 요청 형식입니다.' });
+
+  const comment: CommentData = await Comment.findById(_id);
+  if (comment.username !== username)
+    return res.status(400).json({ message: '잘못된 유저이름입니다.' });
+  if (comment.password !== password)
+    return res.status(400).json({ message: '잘못된 비밀번호입니다.' });
+  await Comment.findByIdAndDelete(_id);
+
+  return res.status(200).json({ message: '삭제가 완료되었습니다.' });
 };
