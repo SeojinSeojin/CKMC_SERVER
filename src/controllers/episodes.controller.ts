@@ -1,5 +1,5 @@
 import { NextFunction, Response, Request } from 'express';
-import { Author, Episode, User, Work } from '../db/schema';
+import { Author, Episode, User, Work, Comment } from '../db/schema';
 import { AuthorData, EpisodeData } from '../types';
 import { CustomRequest } from '../types/API';
 
@@ -151,6 +151,10 @@ export const deleteEpisode = async (
   for (let i = +episodeIdx + 1; i <= episodes.length; i++) {
     await Episode.updateOne(
       { index: i, authorName: author.nickName },
+      { $set: { index: i - 1 } }
+    );
+    await Comment.updateMany(
+      { episodeIndex: i, authorName: author.nickName },
       { $set: { index: i - 1 } }
     );
   }
