@@ -61,6 +61,9 @@ export const getCommentsByEpisode = async (
   const { authorName, episodeIndex } = req.query;
   if (!authorName || !episodeIndex)
     return res.status(400).json({ message: '잘못된 요청 형식입니다.' });
+  const author = req.session.author;
+  if (!author || author.nickName !== authorName)
+    return res.status(400).json({ message: '댓글 조회 권한이 없습니다.' });
   const comments: CommentData[] = await Comment.find({
     authorName,
     episodeIndex,
