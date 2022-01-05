@@ -97,7 +97,7 @@ export const deleteComment = async (
   res: Response,
   next: NextFunction
 ) => {
-  const { username, password, _id } = req.body;
+  const { username, password, _id } = req.query;
   if (!username || !password || !_id)
     return res.status(400).json({ message: '잘못된 요청 형식입니다.' });
 

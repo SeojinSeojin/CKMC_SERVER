@@ -1,5 +1,6 @@
 import { Router } from 'express';
 import {
+  deleteComment,
   getCommentByID,
   getCommentsByEpisode,
   patchComment,
@@ -12,3 +13,4 @@ commentRouter.post('/', postComments);
 commentRouter.get('/', getCommentByID);
 commentRouter.get('/episode', getCommentsByEpisode);
 commentRouter.patch('/', patchComment);
+commentRouter.delete('/', deleteComment);
