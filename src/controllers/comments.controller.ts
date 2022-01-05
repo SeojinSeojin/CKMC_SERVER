@@ -41,16 +41,19 @@ export const getCommentByID = async (
   res: Response,
   next: NextFunction
 ) => {
-  const { username, password, commentID } = req.query;
-  if (!username || !password || !commentID)
+  const { username, password, authorName, episodeIndex } = req.query;
+  if (!username || !password || !authorName || !episodeIndex)
     return res.status(400).json({ message: '잘못된 요청 형식입니다.' });
 
-  const comment: CommentData = await Comment.findById(commentID);
-  if (comment.username !== username)
-    return res.status(400).json({ message: '잘못된 유저이름입니다.' });
-  if (comment.password !== password)
-    return res.status(400).json({ message: '잘못된 비밀번호입니다.' });
-  return res.status(200).json(comment);
+  const comment: CommentData[] = await Comment.find({
+    username,
+    password,
+    authorName,
+    episodeIndex,
+  });
+  return comment.length
+    ? res.status(200).json(comment)
+    : res.status(204).json(comment);
 };
 
 export const getCommentsByEpisode = async (
