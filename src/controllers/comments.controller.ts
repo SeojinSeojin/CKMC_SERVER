@@ -102,6 +102,8 @@ export const deleteComment = async (
     return res.status(400).json({ message: '잘못된 요청 형식입니다.' });
 
   const comment: CommentData = await Comment.findById(_id);
+  if (!comment)
+    return res.status(400).json({ message: '잘못된 메시지 아이디입니다.' });
   if (comment.username !== username)
     return res.status(400).json({ message: '잘못된 유저이름입니다.' });
   if (comment.password !== password)
